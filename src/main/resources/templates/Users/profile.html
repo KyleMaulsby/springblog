@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/header :: main-header('Home')"/>
+</head>
+<body>
+<nav th:replace="fragments/navbar"></nav>
+<h1 class="header"><span th:text="${user.username}"></span>'s Profile</h1>
+<main class="container row center">
+    <div class="col-4 row">
+        <img class="col-12" th:src="${user.photo}" alt=""/>
+        <p class="col-12">Username: <span th:text="${user.username}"></span></p>
+        <p class="col-12">Email: <span th:text="${user.email}"></span></p>
+        <div th:if="${user.bio != null}">
+            <p class="col-12">About Me:</p>
+            <p class="col-12" th:text="${user.bio}" ></p>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="card ad" th:each="post : ${posts}" th:if="${post.getUser().getId() == user.id}">
+            <div class="card-body row">
+                <h5 class="card-title" th:text="${post.title}"></h5>
+                <p class="card-text" th:text="${post.body}"></p>
+                <a th:href="@{/posts/{id}(id=${post.id})}" class="btn btn-light">View</a>
+                <a th:href="@{/posts/{id}/edit(id=${post.id})}" class="btn btn-light">Edit</a>
+                <form th:action="@{/posts/{id}/delete(id=${post.id})}" th:method="Post">
+                    <button class="btn btn-light" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<footer th:replace="fragments/footer"></footer>
+<th:block th:replace="fragments/scripts" />
+
+
+</body>
+</html>

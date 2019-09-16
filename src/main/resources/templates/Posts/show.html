@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/header :: main-header('Home')"/>
+</head>
+<body>
+<nav th:replace="fragments/navbar"></nav>
+<div class="container">
+    <h1 th:text="${post.title}"></h1>
+    <p th:text="${post.body}"></p>
+    <p>Author: <span th:text="${post.user.username}"></span></p>
+    <p>Email: <span th:text="${post.user.email}"></span></p>
+    <div th:each="photo : ${photos}">
+        <img th:src="${photo.photo}" alt="error"/>
+    </div>
+</div>
+<footer th:replace="fragments/footer"></footer>
+<th:block th:replace="fragments/scripts" />
+
+</body>
+</html>

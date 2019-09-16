@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="fragments/navbar"></nav>
+    <h1>You guessed number <span th:text="${guess}"></span>.</h1>
+    <h1>The dice rolled a <span th:text="${result}"></span>.</h1>
+
+    <h2 th:if="${count>0}">Congrats, you guessed <span th:text="${count}"></span> right numbers.</h2>
+    <h2 th:if="${count == 0}">Rip, you got 0 right.  Guess again.</h2>
+</body>
+<footer th:replace="fragments/footer"></footer>
+</html>

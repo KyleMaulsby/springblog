@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/navbar">
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="fragments/navbar"></nav>
+<h1>Guess what number the dice will roll!</h1>
+    <form action="/roll-dice/1" method="GET">
+        <button>1</button>
+    </form>
+    <form action="/roll-dice/2" method="GET">
+        <button>2</button>
+    </form>
+    <form action="/roll-dice/3" method="GET">
+        <button>3</button>
+    </form>
+    <form action="/roll-dice/4" method="GET">
+        <button>4</button>
+    </form>
+    <form action="/roll-dice/5" method="GET">
+        <button>5</button>
+    </form>
+    <form action="/roll-dice/6" method="GET">
+        <button>6</button>
+    </form>
+<footer th:replace="fragments/footer"></footer>
+</body>
+</html>

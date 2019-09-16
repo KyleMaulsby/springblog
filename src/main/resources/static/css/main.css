@@ -1,0 +1,32 @@
+/*body{*/
+/*    background: blue;*/
+/*}*/
+
+#navNav{
+    display: flex;
+}
+.button{
+    border: none;
+    background-color: transparent;
+}
+.button:focus{
+    outline: none;
+}
+.card{
+    flex-direction: row;
+}
+#mag{
+    height:15px;
+    width: 15px
+}
+.center{
+    margin:auto;
+}
+.header{
+    position: relative;
+    left:160px;
+    padding: 20px;
+}
+.hidden{
+    display: none;
+}
