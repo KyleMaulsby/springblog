@@ -40,14 +40,14 @@ public class PostController{
         ArrayList<Post> formatedPosts = new ArrayList<>();
         for(Post post : posts) {
             Post newPost = new Post(post);
-            if(newPost.getBody().length() >= 200){
-                newPost.setBody(newPost.getBody().substring(0,200) +"...");
+            if(newPost.getBody().length() >= 100){
+                newPost.setBody(newPost.getBody().substring(0,100) +"...");
             }
             formatedPosts.add(newPost);
         }
         Iterable<Post> formatedResults = formatedPosts;
         model.addAttribute("post", formatedResults);
-        return "posts/index";
+        return "Posts/index";
     }
 
     @GetMapping("/posts/search")
@@ -67,7 +67,7 @@ public class PostController{
         }
         Iterable<Post> searchResults = search;
         model.addAttribute("post", searchResults);
-        return "posts/index";
+        return "Posts/index";
     }
 
     @GetMapping("/posts/{id}")
@@ -76,22 +76,27 @@ public class PostController{
         Iterable<Photo> photos = photoDao.findByPost_Id(id);
         model.addAttribute("post", post);
         model.addAttribute("photos", photos);
-        return "/posts/show";
+        return "posts/show";
     }
 
     @GetMapping("/posts/{id}/edit")
     public String getEditForm(@PathVariable long id, Model model) {
         Post post = postDao.findOne(id);
         model.addAttribute("post",post);
-        return "posts/edit";
+        return "Posts/edit";
     }
 
     @PostMapping("/posts/edit")
-    public String edit(@ModelAttribute Post post) {
+    public String edit(@RequestParam(name = "idEdit") long id,
+                       @RequestParam(name = "titleEdit") String title,
+                       @RequestParam(name = "bodyEdit") String body) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Post post = postDao.findOne(id);
         post.setUser(user);
+        post.setTitle(title);
+        post.setBody(body);
         postDao.save(post);
-        return "redirect:/posts/"+post.getId();
+        return "redirect:/profile";
     }
 
     @PostMapping("/posts/{id}/delete")
@@ -108,7 +113,7 @@ public class PostController{
     @GetMapping("/posts/create")
     public String showCreateForm(Model model){
         model.addAttribute("post", new Post());
-        return "posts/create";
+        return "Posts/create";
     }
 
     @PostMapping("/posts/create")

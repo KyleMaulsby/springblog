@@ -4,29 +4,33 @@
 
 <body>
 
-<nav class="navbar navbar-light bg-light navbar-expand-lg" th:fragment="navbar">
+<nav class="navbar navbar-expand-lg myNav" th:fragment="navbar">
     <a href="/" class="navbar-brand">My Blog</a>
     <div class="ml-md-auto" id="navNav">
         <button class="button" id="searchButton" data-toggle="modal" data-target="#search"><a class="nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512" id="mag">
-                <path fill="rgba(0,0,0,.5)" d="M 505 442.7 L 405.3 343 c -4.5 -4.5 -10.6 -7 -17 -7 H 372 c 27.6 -35.3 44 -79.7 44 -128 C 416 93.1 322.9 0 208 0 S 0 93.1 0 208 s 93.1 208 208 208 c 48.3 0 92.7 -16.4 128 -44 v 16.3 c 0 6.4 2.5 12.5 7 17 l 99.7 99.7 c 9.4 9.4 24.6 9.4 33.9 0 l 28.3 -28.3 c 9.4 -9.4 9.4 -24.6 0.1 -34 Z M 208 336 c -70.7 0 -128 -57.2 -128 -128 c 0 -70.7 57.2 -128 128 -128 c 70.7 0 128 57.2 128 128 c 0 70.7 -57.2 128 -128 128 Z"></path>
+                <path fill="rgb(255,255,255)" d="M 505 442.7 L 405.3 343 c -4.5 -4.5 -10.6 -7 -17 -7 H 372 c 27.6 -35.3 44 -79.7 44 -128 C 416 93.1 322.9 0 208 0 S 0 93.1 0 208 s 93.1 208 208 208 c 48.3 0 92.7 -16.4 128 -44 v 16.3 c 0 6.4 2.5 12.5 7 17 l 99.7 99.7 c 9.4 9.4 24.6 9.4 33.9 0 l 28.3 -28.3 c 9.4 -9.4 9.4 -24.6 0.1 -34 Z M 208 336 c -70.7 0 -128 -57.2 -128 -128 c 0 -70.7 57.2 -128 128 -128 c 70.7 0 128 57.2 128 128 c 0 70.7 -57.2 128 -128 128 Z"></path>
             </svg>
         </a></button>
 
             <div class="modal" id="search" tabindex="-1" role="dialog">
                 <div class="modle-header" style="height:50px;"></div>
                 <div class="container">
-                    <input class="form-control" type="text" placeholder="Search" id="Squery" onkeyup="searchModal()" />
+                    <input class="form-control modalInput" type="text" placeholder="Search" id="Squery" onkeyup="searchModal()" />
 
 
                 <div class="container row content-justified">
-                    <div class="container col-6">
-                        <p>Users</p>
-                        <div id="Users" class="hidden"></div>
+                    <div id="userD"  class="container col-6 hidden">
+<!--                        <divclass="hidden">-->
+                            <p class="modalTitle">Users</p>
+                            <div id="Users"></div>
+<!--                        </div>-->
                     </div>
-                    <div class="container col-6">
-                        <p>Posts</p>
-                        <div id="Posts" class="hidden"></div>
+                    <div id="postD" class="container col-6 hidden">
+<!--                        <divclass="hidden">-->
+                            <p class="modalTitle">Posts</p>
+                            <div id="Posts"></div>
+<!--                        </div>-->
                     </div>
                 </div>
                 </div>
@@ -44,7 +48,7 @@
                     <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
                     <li class="nav-item">
                         <form class="nav-item" th:action="@{/logout}" th:method="post">
-                            <button class="button"><a class="nav-link">Logout</a></button>
+                            <button class="button"><a class="nav-link" style="color:white">Logout</a></button>
                         </form>
                     </li>
                 </th:block>

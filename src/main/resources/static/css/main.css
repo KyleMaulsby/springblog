@@ -5,6 +5,12 @@
 #navNav{
     display: flex;
 }
+.myNav{
+    background-color:#00417D;
+}
+.myNav a{
+    color:white;
+}
 .button{
     border: none;
     background-color: transparent;
@@ -26,7 +32,52 @@
     position: relative;
     left:160px;
     padding: 20px;
+    display: inline-block;
 }
 .hidden{
     display: none;
+}
+.modalA{
+    color: black;
+}
+.modalA:hover{
+    background-color: darkblue;
+    color:white;
+}
+.modalTitle{
+    color: white;
+    padding-bottom: 0;
+}
+.modalInput{
+    width: 75%;
+    margin: 10px auto;
+    padding:20px;
+}
+.modalSearchResult{
+    padding: 0 0 5px 15px;
+}
+.modalCard{
+    border:none;
+    background-color: transparent;
+}
+.modalResultTitle{
+    text-align:left;
+}
+.modalForm{
+    padding:20px;
+}
+.modal-content{
+    width:40%;
+    margin: auto;
+}
+.modalButton{
+    float:right;
+}
+.modalButton:hover{
+    color:white;
+    background: darkblue;
+    border:1px solid darkblue;
+}
+.card-text{
+    color:black;
 }

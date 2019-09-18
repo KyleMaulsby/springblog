@@ -31,7 +31,7 @@ public class UserController {
     @GetMapping("/sign-up")
     public String showSignupForm(Model model){
         model.addAttribute("user", new User());
-        return "/users/sign-up";
+        return "Users/sign-up";
     }
 
     @PostMapping("/sign-up")
@@ -53,6 +53,10 @@ public class UserController {
     public String viewProfile(Model model){
         Iterable<Post> posts = postDao.findAll();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User currentUser = users.findById(user.getId());
+
+
         ArrayList<Post> formatedPosts = new ArrayList<>();
         for(Post post : posts) {
             Post newPost = new Post(post);
@@ -64,8 +68,37 @@ public class UserController {
         Iterable<Post> formatedResults = formatedPosts;
         model.addAttribute("posts", formatedResults);
         model.addAttribute("user",user);
+        model.addAttribute("userSesh",currentUser);
         return "Users/profile";
 //        Iterable<Post> userPosts = postDao.findAll(posts, user.getId());
+    }
+
+    @GetMapping("/profile/{id}")
+    public String getUserProfile(@PathVariable long id, Model model){
+        Iterable<Post> posts = postDao.findAll();
+        User user = users.findById(id);
+
+        try{
+          User userSesh = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+          User currentUser = users.findById(userSesh.getId());
+          model.addAttribute("userSesh",currentUser);
+        }catch(Exception e){
+
+        }
+        ArrayList<Post> formatedPosts = new ArrayList<>();
+        for(Post post : posts) {
+            if(post.getUser().getId() == user.getId()) {
+                Post newPost = new Post(post);
+                if (newPost.getBody().length() >= 200) {
+                    newPost.setBody(newPost.getBody().substring(0, 200) + "...");
+                }
+                formatedPosts.add(newPost);
+            }
+        }
+        Iterable<Post> formatedResults = formatedPosts;
+        model.addAttribute("posts", formatedResults);
+        model.addAttribute("user",user);
+        return "Users/profile";
     }
 
 

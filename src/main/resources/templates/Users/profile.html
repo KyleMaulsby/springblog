@@ -14,22 +14,49 @@
         <div th:if="${user.bio != null}">
             <p class="col-12">About Me:</p>
             <p class="col-12" th:text="${user.bio}" ></p>
-        </div>
+        </div>id
     </div>
     <div class="col-8">
         <div class="card ad" th:each="post : ${posts}" th:if="${post.getUser().getId() == user.id}">
-            <div class="card-body row">
+            <div class="card-body">
                 <h5 class="card-title" th:text="${post.title}"></h5>
                 <p class="card-text" th:text="${post.body}"></p>
-                <a th:href="@{/posts/{id}(id=${post.id})}" class="btn btn-light">View</a>
-                <a th:href="@{/posts/{id}/edit(id=${post.id})}" class="btn btn-light">Edit</a>
-                <form th:action="@{/posts/{id}/delete(id=${post.id})}" th:method="Post">
-                    <button class="btn btn-light" type="submit">Delete</button>
-                </form>
+                <div class="row">
+                    <a th:href="@{/posts/{id}(id=${post.id})}" class="btn btn-light">View</a>
+                    <button th:if="${userSesh} == ${post.user}" data-toggle="modal" data-target="#edit" class="btn btn-light" type="button">Edit</button>
+                        <div class="modal" id="edit" tabindex="-1" role="dialog">
+                            <div class="modle-header" style="height:50px;"></div>
+                            <div class="modal-content">
+                                <form class="modalForm" th:action="@{/posts/edit}" method="post">
+                                    <label for="titleEdit"><h3>Title: </h3></label>
+                                    <input class="form-control modalInput" type="text" id="titleEdit" name="titleEdit" th:value="${post.title}"/>
+                                    <label for="bodyEdit">Body: </label>
+                                    <input class="form-control modalInput" id="bodyEdit" name="bodyEdit" th:value="${post.body}" />
+                                    <input type="hidden" id="idEdit" name="idEdit" th:value="${post.id}" />
+                                    <button class="modalButton btn btn-dark" type="submit">Edit</button>
+                                </form>
+                            </div>
+                        </div>
+                    <button th:if="${userSesh} == ${post.user}" data-toggle="modal" data-target="#delete" class="btn btn-light" type="button">Delete</button>
+                        <div class="modal" id="delete" tabindex="-1" role="dialog">
+                            <div class="modle-header" style="height:50px;"></div>
+                            <div class="modal-content">
+                                <div class="modalForm">
+                                    <h3>Are you sure you want to delete this post?</h3>
+                                    <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post">
+                                        <button class="modalButton btn btn-danger" type="submit">Yes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                </div>
             </div>
         </div>
     </div>
 </main>
+
+
+
 
 
 <footer th:replace="fragments/footer"></footer>
